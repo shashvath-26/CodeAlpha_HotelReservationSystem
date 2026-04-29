@@ -1,16 +1,10 @@
-// Hotel Reservation System - CodeAlpha Internship Task
-// Author: Velijarla Shashvath
-// LinkedIn: https://www.linkedin.com/in/velijarla-shashvath-9509ab36a
-// GitHub: https://github.com/shashvath-26
-
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HotelReservationSystem {
+public class Main {
 
-    // Room class to represent hotel rooms
     static class Room {
         int roomNumber;
         String roomType;
@@ -32,7 +26,6 @@ public class HotelReservationSystem {
         }
     }
 
-    // Reservation class to track bookings
     static class Reservation {
         String reservationId;
         int roomNumber;
@@ -44,8 +37,8 @@ public class HotelReservationSystem {
         double totalPrice;
 
         public Reservation(String reservationId, int roomNumber, String guestName,
-                         String guestEmail, String checkInDate, String checkOutDate,
-                         int numberOfNights, double totalPrice) {
+                           String guestEmail, String checkInDate, String checkOutDate,
+                           int numberOfNights, double totalPrice) {
             this.reservationId = reservationId;
             this.roomNumber = roomNumber;
             this.guestName = guestName;
@@ -57,15 +50,14 @@ public class HotelReservationSystem {
         }
 
         public String toString() {
-            return "Reservation ID: " + reservationId + "\n" +
-                   "Guest: " + guestName + " (" + guestEmail + ")\n" +
-                   "Room " + roomNumber + "\n" +
-                   "Check-in: " + checkInDate + " | Check-out: " + checkOutDate + "\n" +
-                   "Nights: " + numberOfNights + " | Total: $" + totalPrice;
+            return "Reservation ID: " + reservationId + "\n"
+                 + "Guest: " + guestName + " (" + guestEmail + ")\n"
+                 + "Room " + roomNumber + "\n"
+                 + "Check-in: " + checkInDate + " | Check-out: " + checkOutDate + "\n"
+                 + "Nights: " + numberOfNights + " | Total: $" + totalPrice;
         }
     }
 
-    // Hotel class managing all operations
     static class Hotel {
         String hotelName;
         ArrayList<Room> rooms;
@@ -81,7 +73,6 @@ public class HotelReservationSystem {
         }
 
         private void initializeRooms() {
-            // Add different types of rooms
             rooms.add(new Room(101, "Standard", 100.0));
             rooms.add(new Room(102, "Standard", 100.0));
             rooms.add(new Room(201, "Deluxe", 150.0));
@@ -89,7 +80,6 @@ public class HotelReservationSystem {
             rooms.add(new Room(301, "Suite", 250.0));
             rooms.add(new Room(302, "Suite", 250.0));
 
-            // Store prices by room number
             for (Room room : rooms) {
                 roomPrices.put(room.roomNumber, room.pricePerNight);
             }
@@ -135,8 +125,8 @@ public class HotelReservationSystem {
         }
 
         public Reservation makeReservation(String guestName, String guestEmail,
-                                          String roomType, String checkInDate,
-                                          String checkOutDate, int numberOfNights) {
+                                           String roomType, String checkInDate,
+                                           String checkOutDate, int numberOfNights) {
             Room room = findAvailableRoom(roomType);
             if (room == null) {
                 System.out.println("Sorry, no " + roomType + " rooms available!");
@@ -150,7 +140,6 @@ public class HotelReservationSystem {
                                                      guestName, guestEmail, checkInDate,
                                                      checkOutDate, numberOfNights, totalPrice);
 
-            // Mark room as booked
             room.isAvailable = false;
             room.guestName = guestName;
 
@@ -166,7 +155,6 @@ public class HotelReservationSystem {
             for (int i = 0; i < reservations.size(); i++) {
                 Reservation reservation = reservations.get(i);
                 if (reservation.reservationId.equals(reservationId)) {
-                    // Mark room as available again
                     Room room = findRoom(reservation.roomNumber);
                     if (room != null) {
                         room.isAvailable = true;
@@ -206,7 +194,6 @@ public class HotelReservationSystem {
         }
     }
 
-    // Main class for user interaction
     static class ReservationSystem {
         Hotel hotel;
         Scanner scanner;
@@ -316,7 +303,7 @@ public class HotelReservationSystem {
             }
 
             hotel.makeReservation(guestName, guestEmail, roomType,
-                                checkInDate, checkOutDate, numberOfNights);
+                                  checkInDate, checkOutDate, numberOfNights);
         }
 
         private void cancelReservation() {
@@ -337,7 +324,6 @@ public class HotelReservationSystem {
         }
     }
 
-    // Entry point
     public static void main(String[] args) {
         ReservationSystem system = new ReservationSystem();
         system.start();
